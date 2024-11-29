@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build with NASM",
+      "type": "shell",
+      "command": "nasm",
+      "args": [
+        "-f",
+        "bin",
+        "text-editor-main.asm",
+        "-o",
+        "text-editor.com"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}
