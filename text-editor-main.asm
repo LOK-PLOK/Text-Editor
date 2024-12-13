@@ -89,6 +89,8 @@ read_char:
     je new_line
     cmp ah, 47h         ; Home
     je move_home
+    cmp al, 8           ; Backspace
+    je backspace
     
     ; Regular character
     call display_char
@@ -180,6 +182,35 @@ new_line:
 cursor_update:
     mov ah, 02h        ; Set cursor position
     int 10h
+    ret
+
+backspace:
+    ; Move cursor left
+    call move_left
+    
+    ; Clear the character on screen
+    push ax
+    push bx
+    push cx
+    push dx
+    mov ah, 09h
+    mov al, ' '        ; Space character
+    mov bh, 0
+    mov bl, [color]
+    mov cx, 1
+    int 10h
+    
+    ; Update buffer
+    mov si, matrix      ; Get buffer base address
+    add si, [curr_line] ; Add current line offset
+    add si, [curr_char] ; Add current character position
+    mov byte [si], ' '  ; Clear the character in the buffer
+    dec word [length]   ; Decrement total length
+    
+    pop dx
+    pop cx
+    pop bx
+    pop ax
     ret
 
 save_file:

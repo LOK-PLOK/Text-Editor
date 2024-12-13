@@ -29,6 +29,9 @@ sudo apt install dosbox
 
     # In DOSBox, mount your directory
     mount c <PATH of ASM FILE>/GITHUB/Text-Editor
+
+    # for my case
+    mount c /home/lok/GITHUB/Text-Editor
         
     c:
         
